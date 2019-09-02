@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#	  http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,22 +17,24 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
+LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/app/src/main/res
+
+LOCAL_MANIFEST_FILE := app/src/main/AndroidManifest.xml
 
 LOCAL_SRC_FILES := \
-    $(call all-java-files-under, java)
+	$(call all-java-files-under, app/src/main/java)
 
 
 LOCAL_USE_AAPT2 := true
 
 LOCAL_STATIC_ANDROID_LIBRARIES += \
-    androidx.annotation_annotation \
-    androidx-constraintlayout_constraintlayout \
-    androidx-constraintlayout_constraintlayout-solver \
-    androidx.appcompat_appcompat \
-    androidx.cardview_cardview \
-    androidx.recyclerview_recyclerview \
-    com.google.android.material_material \
+	androidx.annotation_annotation \
+	androidx-constraintlayout_constraintlayout \
+	androidx-constraintlayout_constraintlayout-solver \
+	androidx.appcompat_appcompat \
+	androidx.cardview_cardview \
+	androidx.recyclerview_recyclerview \
+	com.google.android.material_material \
 
 LOCAL_PACKAGE_NAME := Recorder
 LOCAL_CERTIFICATE := platform
@@ -42,5 +44,3 @@ LOCAL_PRIVILEGED_MODULE := true
 LOCAL_PRIVATE_PLATFORM_APIS := true
 
 include $(BUILD_PACKAGE)
-
-include $(call all-makefiles-under,$(LOCAL_PATH))
