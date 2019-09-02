@@ -1,7 +1,9 @@
+import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
+
 buildscript {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
@@ -15,6 +17,50 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.wrapper {
+    gradleVersion = "5.6.1"
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        applicationId "org.lineageos.recorder"
+        minSdkVersion 28
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.1"
+    }
+    sourceSets {
+        main {
+            res.srcDirs = ['app/src/main/res']
+            java.srcDirs = ['app/src/main/java']
+            manifest.srcFile 'app/src/main/AndroidManifest.xml'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'system_libs/', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
 }
