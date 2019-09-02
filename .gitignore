@@ -8,3 +8,5 @@
 .externalNativeBuild
 /app/build
 /system_libs
+keystore.properties
+*.jks
